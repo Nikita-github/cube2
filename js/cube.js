@@ -2,6 +2,31 @@ var camera, scene, renderer;
 var cube;
 var rotation = 1;
 			
+			var stats = initStats();
+			
+			var controls = new function() {
+				this.rotationSpeed = 0.01;
+				this.cubeColor = 0x0ca745;
+				this.bgColor = 0xEEEEEE;
+				this.play = function() { console.log("play") };
+				this.stop = function() { console.log("stop") };
+				this.reverse = function() { console.log("reverse") };
+			}
+			
+			var gui = new dat.GUI();
+			
+			var colors = gui.addFolder('Colors');
+				colors.addColor(controls, 'cubeColor');
+				colors.addColor(controls, 'bgColor');
+
+			var actions = gui.addFolder('Actions');
+				actions.add(controls, 'play');
+				actions.add(controls, 'stop');
+				actions.add(controls, 'reverse');
+				actions.add(controls, 'rotationSpeed',0,0.05);
+
+			actions.open();
+
 			init();
 			animate();
 
@@ -69,12 +94,20 @@ var rotation = 1;
 			function animate() {
 
 				requestAnimationFrame( animate );
-
-				cube.rotation.y += (0.01 * rotation);
+	
+				cube.rotation.y += (controls.rotationSpeed * rotation);
+				stats.update();
 
 				renderer.render( scene, camera );
 			}
 			
 			function setRotation() {
 				rotation = ( rotation == 1 ) ? -1 : 1;
+			}
+			
+			function initStats() {
+				var stats = new Stats();
+				stats.setMode(0);
+				$("#stats-output").append(stats.domElement );
+				return stats;
 			}

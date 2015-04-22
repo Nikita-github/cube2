@@ -14,5 +14,10 @@ body {
 	position: absolute;
 	padding: 1em;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-	top: 30px;
+	top: 60px;
+}
+#stats-output {
+	left: 0;
+	position: absolute;
+	top: 0;
 }
