@@ -20,6 +20,7 @@ $(function() {
 		this.stop = function() { 
 						if ( requestId ) {
 							window.cancelAnimationFrame(requestId);
+							requestId = undefined;
 						}
 						stopped = true; 
 					};
@@ -45,12 +46,18 @@ $(function() {
 	// Управляем изменениями цвета куба
 	cubeColor.onChange(function() {
 		cube.material.color.setStyle( controls.cubeColor );
+		if( stopped ) {
+			renderer.render( scene, camera );
+		}
 	});
 
 	// Управляем изменениями цвета фона
 	bgColor.onChange(function() {
 		renderer.setClearColor( controls.bgColor );
 		plane.material.color.setStyle( controls.bgColor );
+		if( stopped ) {
+			renderer.render( scene, camera );
+		}
 	});
 
 	init();
