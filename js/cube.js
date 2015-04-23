@@ -7,7 +7,7 @@ $(function() {
 				
 	var stats = initStats();
 
-	// Определяем св-ва визуализации, значения по умолчанию и диапазон изменений
+	// РћРїСЂРµРґРµР»СЏРµРј СЃРІ-РІР° РІРёР·СѓР°Р»РёР·Р°С†РёРё, Р·РЅР°С‡РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Рё РґРёР°РїР°Р·РѕРЅ РёР·РјРµРЅРµРЅРёР№
 	var controls = new function() {
 		this.rotationSpeed = 0.01;
 		this.cubeColor = "#0ca745";
@@ -28,7 +28,7 @@ $(function() {
 
 	var gui = new dat.GUI();
 	
-	// Создаем элементы управления (2 группы: Colors, Actions)
+	// РЎРѕР·РґР°РµРј СЌР»РµРјРµРЅС‚С‹ СѓРїСЂР°РІР»РµРЅРёСЏ (2 РіСЂСѓРїРїС‹: Colors, Actions)
 	var colors = gui.addFolder('Colors');
 		cubeColor = colors.addColor(controls, 'cubeColor');
 		bgColor = colors.addColor(controls, 'bgColor');
@@ -42,12 +42,12 @@ $(function() {
 	colors.open();
 	actions.open();		
 
-	// Управляем изменениями цвета куба
+	// РЈРїСЂР°РІР»СЏРµРј РёР·РјРµРЅРµРЅРёСЏРјРё С†РІРµС‚Р° РєСѓР±Р°
 	cubeColor.onChange(function() {
 		cube.material.color.setStyle( controls.cubeColor );
 	});
 
-	// Управляем изменениями цвета фона
+	// РЈРїСЂР°РІР»СЏРµРј РёР·РјРµРЅРµРЅРёСЏРјРё С†РІРµС‚Р° С„РѕРЅР°
 	bgColor.onChange(function() {
 		renderer.setClearColor( controls.bgColor );
 		plane.material.color.setStyle( controls.bgColor );
@@ -56,10 +56,10 @@ $(function() {
 	init();
 	animate();
 
-	// Фунция инициализации визуализатора, сцены, плоскости, куба, света сцены, камеры.
+	// Р¤СѓРЅС†РёСЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РІРёР·СѓР°Р»РёР·Р°С‚РѕСЂР°, СЃС†РµРЅС‹, РїР»РѕСЃРєРѕСЃС‚Рё, РєСѓР±Р°, СЃРІРµС‚Р° СЃС†РµРЅС‹, РєР°РјРµСЂС‹.
 	function init() {
 		
-		// Создаем и настриваем визуализатор
+		// РЎРѕР·РґР°РµРј Рё РЅР°СЃС‚СЂРёРІР°РµРј РІРёР·СѓР°Р»РёР·Р°С‚РѕСЂ
 		renderer = new THREE.WebGLRenderer();
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize( window.innerWidth, window.innerHeight );
@@ -67,16 +67,16 @@ $(function() {
 			renderer.shadowMapEnabled = true;
 			document.body.appendChild( renderer.domElement );
 
-		// Создаем сцену
+		// РЎРѕР·РґР°РµРј СЃС†РµРЅСѓ
 		scene = new THREE.Scene();
 		
-		// Создаем и настраиваем освещения
+		// РЎРѕР·РґР°РµРј Рё РЅР°СЃС‚СЂР°РёРІР°РµРј РѕСЃРІРµС‰РµРЅРёСЏ
 		var spotLight = new THREE.SpotLight( 0xFFFFFF );
 			spotLight.position.set( -400, 600, -100 );
 			spotLight.castShadow = true;
 			scene.add(spotLight);
 	
-		// Создаем и настраиваем плоскость для тени
+		// РЎРѕР·РґР°РµРј Рё РЅР°СЃС‚СЂР°РёРІР°РµРј РїР»РѕСЃРєРѕСЃС‚СЊ РґР»СЏ С‚РµРЅРё
 		var planeGeometry = new THREE.PlaneBufferGeometry(800,800);
 		var planeMaterial = new THREE.MeshBasicMaterial({ color: 0xEEEEEE});
 		plane = new THREE.Mesh(planeGeometry,planeMaterial);
@@ -87,7 +87,7 @@ $(function() {
 			plane.position.z = 0;
 			scene.add( plane );
 
-		// Создаем и настраиваем куб
+		// РЎРѕР·РґР°РµРј Рё РЅР°СЃС‚СЂР°РёРІР°РµРј РєСѓР±
 		var cubeGeometry = new THREE.BoxGeometry(200,200,200);
 		var	cubeMaterial = new THREE.MeshLambertMaterial({ color: 0x0CA745 });
 		cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
@@ -95,19 +95,19 @@ $(function() {
 			cube.position.y = 200;
 			scene.add( cube );
 		
-		// Создаем и настраиваем камеру
+		// РЎРѕР·РґР°РµРј Рё РЅР°СЃС‚СЂР°РёРІР°РµРј РєР°РјРµСЂСѓ
 		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight , 1, 1000);
 			camera.position.x = -300;
 			camera.position.y = 400;
 			camera.position.z = 150;
 			camera.lookAt( cube.position );
 		
-		// Следим за изменением размера окна просмотра
+		// РЎР»РµРґРёРј Р·Р° РёР·РјРµРЅРµРЅРёРµРј СЂР°Р·РјРµСЂР° РѕРєРЅР° РїСЂРѕСЃРјРѕС‚СЂР°
 		window.addEventListener( 'resize', onWindowResize, false );
 
 	}
 	
-	// Функция настройки камеры и визуализатора при изменении размера окна просмотра
+	// Р¤СѓРЅРєС†РёСЏ РЅР°СЃС‚СЂРѕР№РєРё РєР°РјРµСЂС‹ Рё РІРёР·СѓР°Р»РёР·Р°С‚РѕСЂР° РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂР° РѕРєРЅР° РїСЂРѕСЃРјРѕС‚СЂР°
 	function onWindowResize() {
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
@@ -115,7 +115,7 @@ $(function() {
 		renderer.setSize( window.innerWidth, window.innerHeight );
 	}
 
-	// Функция анимации куба
+	// Р¤СѓРЅРєС†РёСЏ Р°РЅРёРјР°С†РёРё РєСѓР±Р°
 	function animate() {
 		if ( !stopped ) {
 			requestId = window.requestAnimationFrame( animate );
@@ -128,7 +128,7 @@ $(function() {
 		renderer.render( scene, camera );
 	}
 
-	// Функция инициализации сбора статистики (fps)
+	// Р¤СѓРЅРєС†РёСЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё СЃР±РѕСЂР° СЃС‚Р°С‚РёСЃС‚РёРєРё (fps)
 	function initStats() {
 		var stats = new Stats();
 			stats.setMode(0);
